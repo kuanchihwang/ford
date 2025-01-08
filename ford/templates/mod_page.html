@@ -17,7 +17,7 @@
       {{ macros.sidebar(project,module) }}
     </div>
 
-    <div class="col-md-9" id='text'>
+    <div class="col-md-9" id="text">
       {{ module.doc }}
       {% if module.uses or module.ancestry or module.usedbygraph or module.descendants %}<br>{% endif %}
       {{ macros.use_list(module) }}
