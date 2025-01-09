@@ -23,7 +23,7 @@
         {%- if dtype.parobj == 'module' %}, {{ dtype.permission }}{% endif -%}
         {%- if dtype.attribs %}, {{ dtype.attribs | join(", ") }}{% endif -%}
         {%- if dtype.extends %}, extends({{ dtype.extends | relurl(page_url) }}){% endif %} :: {{ dtype.name }}
-        {%- if dtype.sequence%}<br>sequence{% endif -%}
+        {%- if dtype.sequence %}<br>sequence{% endif -%}
       </h2>
     {{ dtype.doc }}
     {% if dtype.inherbygraph or dtype.inhergraph %}<br>{% endif %}
