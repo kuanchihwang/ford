@@ -52,7 +52,7 @@
               {% for item in entity.hierarchy[1:] %}
                 <li class="breadcrumb-item">{{ item | relurl(page_url) }}</li>
               {% endfor %}
-            {%endif%}
+            {% endif %}
             <li class="breadcrumb-item active" aria-current="page">{{ entity.name }}</li>
           </ol>
         </nav>
