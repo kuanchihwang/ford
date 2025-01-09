@@ -200,6 +200,11 @@ ul.checklist input[type="checkbox"] {
     margin-right: 4.55px;
 }
 
+ul.list-inline {
+    display: inline;
+    margin-bottom: 0px;
+}
+
 .gitter-chat-embed {
     z-index: 100000;
 }

@@ -4,7 +4,7 @@
   <div class="container p-2 mb-4 bg-light border rounded-3">
     <div class="row align-items-center justify-content-between" id="info-bar">
       <div class="col">
-        <ul class="list-inline" style="margin-bottom:0px;display:inline">
+        <ul class="list-inline">
           {% if entity | meta('author') %}
             <li class="list-inline-item" id="meta-author"><i class="fa fa-pencil"></i> {{ entity | meta('author') }}</li>
           {% endif %}
