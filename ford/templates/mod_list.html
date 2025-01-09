@@ -3,7 +3,7 @@
 {% extends "base.html" %}
 {% block title %}
 All Modules – {{ project }}
-{% endblock %}
+{% endblock title %}
 {% block body %}
 {% macro mod_entry(mod,level) %}
     <tr><td>{{ mod }}</td><td>{{ mod.parent }}</td><td>{{ mod.meta.summary }}</td></tr>
@@ -33,4 +33,4 @@ All Modules – {{ project }}
              {{ project.usegraph }}
         </div>
       </div>
-{% endblock %}
+{% endblock body %}
