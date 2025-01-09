@@ -473,7 +473,7 @@
   {{ deprecated(proc) }}
   {% if proc.module and proc.module != True and proc.module.visible %}
     {% set label = "Implementation" if proc.parobj == 'interface' else "Interface" %}
-    <a href="../{{ proc.module.get_url() }}"><button type="button" class="btn btn-info depwarn">{{ label }} &rarr;</button></a>
+    <a href="../{{ proc.module.get_url() }}"><button type="button" class="btn btn-info depwarn">{{ label }} →</button></a>
   {% endif %}
 {% endmacro %}
 
