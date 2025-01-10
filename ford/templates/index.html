@@ -79,8 +79,8 @@
       {% set max_length = max_frontpage_items|int %}
       {% if count and max_length %}
         {% set width = (12/count)|int %}
+        <hr>
         <div class="row">
-          <hr>
           {% if incl_src %}
           <div class="col-xs-6 col-sm-{{ width }}">
             <div>
