@@ -3,23 +3,30 @@
 {% extends "base.html" %}
 {% block title %}{{ module.name }} – {{ project }}{% endblock title %}
 {% block body %}
-  {% import 'macros.html' as macros %}
+  {% import "macros.html" as macros %}
   <div class="row">
-    <h1>{{ module.name }}
-      <small>{% if module.obj == 'submodule' %}Submodule{% else %}Module{% endif %}</small>
+    <h1>
+      {{ module.name }}
+      <small>
+        {% if module.obj == "submodule" %}
+          Submodule
+        {% else %}
+          Module
+        {% endif %}
+      </small>
       {{ macros.deprecated(module) }}
     </h1>
     {{ macros.info_bar(module, incl_src, project_url, module.lines_description(project.mod_lines)) }}
   </div>
 
   <div class="row">
-    <div class="col-md-3">
-      {{ macros.sidebar(project,module) }}
-    </div>
+    <div class="col-md-3">{{ macros.sidebar(project, module) }}</div>
 
     <div class="col-md-9" id="text">
       {{ module.doc }}
-      {% if module.uses or module.ancestry or module.usedbygraph or module.descendants %}<br>{% endif %}
+      {% if module.uses or module.ancestry or module.usedbygraph or module.descendants %}
+        <br>
+      {% endif %}
       {{ macros.use_list(module) }}
       {{ macros.usedby_list(module) }}
       <br>
@@ -132,5 +139,4 @@
       {% endif %}
     </div>
   </div>
-
 {% endblock body %}

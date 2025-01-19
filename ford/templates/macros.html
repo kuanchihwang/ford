@@ -1,35 +1,49 @@
 <!-- -*- mode: jinja2 -*- -->
 
 {% macro info_bar(entity, incl_src, base_url, line_info) %}
-  <div class="container p-2 mb-4 bg-light border rounded-3">
+  <div class="bg-light rounded-3 container mb-4 border p-2">
     <div class="row align-items-center justify-content-between" id="info-bar">
       <div class="col">
         <ul class="list-inline">
-          {% if entity | meta('author') %}
-            <li class="list-inline-item" id="meta-author"><i class="fa fa-pencil"></i> {{ entity | meta('author') }}</li>
+          {% if entity | meta("author") %}
+            <li class="list-inline-item" id="meta-author">
+              <i class="fa fa-pencil"></i> {{ entity | meta("author") }}
+            </li>
           {% endif %}
-          {% if entity | meta('date') %}
-            <li class="list-inline-item" id="meta-date"><i class="fa fa-calendar-o"></i> {{ entity | meta('date') }}</li>
+          {% if entity | meta("date") %}
+            <li class="list-inline-item" id="meta-date">
+              <i class="fa fa-calendar-o"></i> {{ entity | meta("date") }}
+            </li>
           {% endif %}
-          {% if entity | meta('license') %}
-            <li class="list-inline-item" id="meta-license"><i class="fa fa-legal"></i> {{ entity | meta('license') }}</li>
-          {% elif projectData['license'] %}
-            <li class="list-inline-item" id="meta-license"><i class="fa fa-legal"></i> {{ projectData['license'] }}</li>
+          {% if entity | meta("license") %}
+            <li class="list-inline-item" id="meta-license">
+              <i class="fa fa-legal"></i> {{ entity | meta("license") }}
+            </li>
+          {% elif projectData["license"] %}
+            <li class="list-inline-item" id="meta-license"><i class="fa fa-legal"></i> {{ projectData["license"] }}</li>
           {% endif %}
-          {% if entity | meta('since') %}
-            <li class="list-inline-item" id="meta-since"><i class="fa fa-history"></i> Since: {{ entity | meta('since') }}</li>
+          {% if entity | meta("since") %}
+            <li class="list-inline-item" id="meta-since">
+              <i class="fa fa-history"></i> Since: {{ entity | meta("since") }}
+            </li>
           {% endif %}
-          {% if entity | meta('version') %}
-            <li class="list-inline-item" id="meta-version"><i class="fa fa-barcode"></i> {{ entity | meta('version') }}</li>
+          {% if entity | meta("version") %}
+            <li class="list-inline-item" id="meta-version">
+              <i class="fa fa-barcode"></i> {{ entity | meta("version") }}
+            </li>
           {% endif %}
-          {% if entity | meta('category') %}
-            <li class="list-inline-item" id="meta-category"><i class="fa fa-folder-open"></i> {{ entity | meta('category') }}</li>
+          {% if entity | meta("category") %}
+            <li class="list-inline-item" id="meta-category">
+              <i class="fa fa-folder-open"></i> {{ entity | meta("category") }}
+            </li>
           {% endif %}
 
           {% if line_info %}
-            <li class="list-inline-item" id="statements"><i class="fa fa-list-ol"></i>
-              <a data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"
-                 title="{{ line_info }}">{{ entity | meta('num_lines') }} statements</a>
+            <li class="list-inline-item" id="statements">
+              <i class="fa fa-list-ol"></i>
+              <a data-bs-html="true" data-bs-placement="bottom" data-bs-toggle="tooltip" title="{{ line_info }}"
+                >{{ entity | meta("num_lines") }} statements</a
+              >
             </li>
           {% endif %}
 
@@ -62,21 +76,24 @@
   <script>
     // Enable Bootstrap tooltips
     (function () {
-      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+      const tooltipList = [...tooltipTriggerList].map((tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl));
     })();
   </script>
 {% endmacro %}
 
-
 {% macro panel_contents(name, collection, anchor, panelnum, collection_url=False) %}
   {% if collection %}
     <div class="card mb-4">
-      <a data-bs-toggle="collapse" href="#{{ anchor }}-{{ panelnum }}"
-         aria-expanded="false" aria-controls="{{ anchor }}-{{ panelnum }}">
-         <h4 class="card-header bg-primary text-white">{{ name }}</h4>
+      <a
+        data-bs-toggle="collapse"
+        href="#{{ anchor }}-{{ panelnum }}"
+        aria-controls="{{ anchor }}-{{ panelnum }}"
+        aria-expanded="false"
+      >
+        <h4 class="card-header bg-primary text-white">{{ name }}</h4>
       </a>
-      <div id="{{ anchor }}-{{ panelnum }}" class="collapse">
+      <div class="collapse" id="{{ anchor }}-{{ panelnum }}">
         <div class="list-group list-group-flush">
           {% for item in collection %}
             {% if item is string %}
@@ -127,7 +144,8 @@
     </div>
   {% endif %}
 
-  {% if not (self.constructor or self.src or
+  {%
+    if not (self.constructor or self.src or
        self.iterator(
          "absinterfaces",
          "args",
@@ -150,51 +168,64 @@
          "types",
          "variables",
        ) | list
-    ) %}
+    )
+  %}
     <em>None</em>
   {% endif %}
 {% endmacro %}
 
-
-{% macro sidebar(project,self) %}
-  <div id="sidebar">
-    {{ content_list(self) }}
-  </div>
+{% macro sidebar(project, self) %}
+  <div id="sidebar">{{ content_list(self) }}</div>
 {% endmacro %}
 
 {% macro add_comma(condition) %}
   {# Insert a literal comma if condition is true #}
-  {%- if condition -%},{% endif %}
+  {%- if condition -%}
+    ,
+  {% endif %}
 {% endmacro %}
 
 {% macro deprecated(entity) %}
-  {# Add 'Deprecated' warning #}
-  {%- if entity | meta('deprecated') -%}
+  {# Add "Deprecated" warning #}
+  {%- if entity | meta("deprecated") -%}
     <span class="badge bg-danger depwarn">Deprecated</span>
   {%- endif -%}
 {% endmacro %}
 
 {% macro variable_list(variables, intent=False, permission=False, summary=False, id=True) %}
-  <table class="table table-striped varlist">
+  <table class="table-striped varlist table">
     <thead>
       <tr>
         <th scope="col">Type</th>
-        {% if permission %}<th scope="col">Visibility</th>{% endif %}
-        {% if intent %}<th scope="col">Intent</th><th scope="col">Optional</th>{% endif %}
+        {% if permission %}
+          <th scope="col">Visibility</th>
+        {% endif %}
+        {% if intent %}
+          <th scope="col">Intent</th>
+          <th scope="col">Optional</th>
+        {% endif %}
         <th scope="col">Attributes</th>
         <th scope="col"></th>
         <th scope="col">Name</th>
-        {% if not intent %}<th></th><th scope="col">Initial</th>{% endif %}
+        {% if not intent %}
+          <th></th>
+          <th scope="col">Initial</th>
+        {% endif %}
         <th scope="col"></th>
       </tr>
     </thead>
-    {% set colnum = 6 + permission|int + intent|int %}
+    {% set colnum = 6 + permission | int + intent | int %}
     <tbody>
       {% for var in variables %}
         <tr>
-          {% if var.obj == 'variable' %}
+          {% if var.obj == "variable" %}
             <td>
-              <span class="anchor" {% if id %}id="{{ var.anchor }}"{% endif %}></span>
+              <span
+                class="anchor"
+                {% if id %}
+                  id="{{ var.anchor }}"
+                {% endif %}
+              ></span>
               {{ var.full_type | relurl(page_url) }}{{ add_comma((intent and var.intent) or var.optional or permission or var.parameter or var.attribs) }}
             </td>
             {% if intent -%}
@@ -203,21 +234,33 @@
                   intent({{ var.intent }}){{ add_comma(var.optional or permission or var.parameter or var.attribs) }}
                 {%- endif -%}
               </td>
-              <td>{%- if var.optional -%}optional{{ add_comma(permission or var.parameter or var.attribs) }}{%- endif -%}</td>
+              <td>
+                {%- if var.optional -%}
+                  optional{{ add_comma(permission or var.parameter or var.attribs) }}
+                {%- endif -%}
+              </td>
             {%- endif %}
             {% if permission %}
               <td>{{ var.permission }}{{ add_comma(var.parameter or var.attribs) }}</td>
             {% endif %}
             <td>
-              {% if var.parameter %}parameter{{ add_comma(var.attribs) }} {% endif %}
+              {% if var.parameter %}
+                parameter{{ add_comma(var.attribs) }}
+              {% endif %}
               {{ var.attribs | join(", ") }}
             </td>
             <td>::</td>
             <td><strong>{{ var.name }}</strong>{{ var.dimension }}</td>
             {% if not intent %}
               {% if var.initial -%}
-                <td>{% if var.points -%} =&gt; {% else %} = {%- endif %}</td>
-                <td>{{ var.initial|e }}</td>
+                <td>
+                  {% if var.points -%}
+                    =&gt;
+                  {% else %}
+                    =
+                  {%- endif %}
+                </td>
+                <td>{{ var.initial | e }}</td>
               {% else %}
                 <td></td>
                 <td></td>
@@ -225,14 +268,14 @@
             {% endif %}
             <td>
               {% if summary -%}
-                {{ var | meta('summary') }}
+                {{ var | meta("summary") }}
               {% else %}
                 {{ var.doc }}
               {% endif %}
             </td>
-          {% elif var.obj == 'proc' %}
+          {% elif var.obj == "proc" %}
             <td colspan="{{ colnum }}">
-              <small>{{ proc_summary(var,title=True,small=True) }}</small>
+              <small>{{ proc_summary(var, title=True, small=True) }}</small>
             </td>
           {% endif %}
         </tr>
@@ -272,8 +315,10 @@
   {# Render the summary of a procedure, to be used in lists of procedures, for example #}
   {% if title %}
     {{ header(3, small) }}
-    {{ proc_line(proc,proto=proto) }}
-    {% if proto %}<small>Prototype</small>{% endif %}
+    {{ proc_line(proc, proto=proto) }}
+    {% if proto %}
+      <small>Prototype</small>
+    {% endif %}
     {{ close_header(3, small) }}
   {% endif %}
   {% if proc.parent and proc.visible %}
@@ -296,7 +341,7 @@
   {% endif %}
 {% endmacro %}
 
-{% macro binding_summary(proc,title=True,small=False,proto=False) %}
+{% macro binding_summary(proc, title=True, small=False, proto=False) %}
   {# Render the documentation for an individual binding of a type-bound procedure #}
   {% if title %}
     {{ header(3, small) }}
@@ -313,7 +358,7 @@
   {{ docstring(proc, False) }}
 
   {{ header(4, small) }}Arguments{{ close_header(4, small) }}
-  {% if proc.args|length %}
+  {% if proc.args | length %}
     {{ variable_list(proc.args, intent=True, summary=proc.visible, id=False) }}
   {% else %}
     <em>None</em>
@@ -327,15 +372,24 @@
   {% endif %}
 {% endmacro %}
 
-
 {% macro bound_declaration(tb, link_name=False) %}
   {# Type-bound procedure declaration and bindings #}
-  {{ tb.full_declaration | relurl(page_url) }} ::
-  <strong>{% if link_name %}{{ tb | relurl(page_url) }}{% else %}{{ tb.name }}{% endif %}</strong>
-  {%- if tb.generic or (tb.name != tb.bindings[0].name and tb.name != tb.bindings[0]) %} => {{ tb.bindings | join(", ") }}{% endif %}
-  {% if tb.binding|length == 1 %}<small>{{ tb.bindings[0].proctype }}</small>{% endif %}
+  {{ tb.full_declaration | relurl(page_url) }}
+  ::
+  <strong>
+    {% if link_name %}
+      {{ tb | relurl(page_url) }}
+    {% else %}
+      {{ tb.name }}
+    {% endif %}
+  </strong>
+  {%- if tb.generic or (tb.name != tb.bindings[0].name and tb.name != tb.bindings[0]) %}
+    => {{ tb.bindings | join(", ") }}
+  {% endif %}
+  {% if tb.binding | length == 1 %}
+    <small>{{ tb.bindings[0].proctype }}</small>
+  {% endif %}
 {% endmacro %}
-
 
 {% macro bound_info(tb) %}
   <div class="card mt-3">
@@ -346,7 +400,7 @@
         {{ deprecated(tb) }}
       </h3>
     </div>
-    {% if tb.doc or meta_list(tb.meta)|trim|length is more_than_one %}
+    {% if tb.doc or meta_list(tb.meta) | trim | length is more_than_one %}
       <div class="card-body">
         {{ meta_list(tb.meta) }}
         {{ docstring(tb) }}
@@ -356,29 +410,29 @@
       {% for bind in tb.bindings %}
         <li class="list-group-item">
           {% if tb.deferred and tb.protomatch %}
-            {% if tb.proto.obj == 'interface' %}
-              {{ binding_summary(tb.proto.procedure,proto=True) }}
-            {% elif tb.proto.obj == 'procedure' %}
-              {{ binding_summary(tb.proto,proto=True) }}
+            {% if tb.proto.obj == "interface" %}
+              {{ binding_summary(tb.proto.procedure, proto=True) }}
+            {% elif tb.proto.obj == "procedure" %}
+              {{ binding_summary(tb.proto, proto=True) }}
             {% endif %}
-          {% elif bind.obj == 'boundprocedure' %}
+          {% elif bind.obj == "boundprocedure" %}
             {% if bind.deferred and bind.protomatch %}
-              {% if bind.proto.obj == 'interface' %}
-                {{ binding_summary(bind.proto.procedure,proto=True) }}
-              {% elif bind.proto.obj == 'procedure' %}
-                {{ binding_summary(bind.proto,proto=True) }}
+              {% if bind.proto.obj == "interface" %}
+                {{ binding_summary(bind.proto.procedure, proto=True) }}
+              {% elif bind.proto.obj == "procedure" %}
+                {{ binding_summary(bind.proto, proto=True) }}
               {% endif %}
             {% else %}
               {{ binding_summary(bind.bindings[0]) }}
             {% endif %}
           {% else %}
-            {% if bind.obj == 'interface' %}
+            {% if bind.obj == "interface" %}
               <h3>interface {{ deprecated(bind) }}</h3>
-              {% if bind.doc or (meta_list(bind.meta)|trim and not bind.visible) %}
+              {% if bind.doc or (meta_list(bind.meta) | trim and not bind.visible) %}
                 {% if not bind.visible %}
                   {{ meta_list(bind.meta) }}
                 {% endif %}
-                {{ bind | meta('summary') }}
+                {{ bind | meta("summary") }}
               {% endif %}
               {{ binding_summary(bind.procedure) }}
             {% else %}
@@ -391,18 +445,22 @@
   </div>
 {% endmacro %}
 
-
 {% macro interface(intr, full_docstring=True) %}
   <div class="card">
     <div class="card-header bg-light codesum">
       <span class="anchor" id="{{ intr.anchor }}"></span>
-      <h3>{% if intr.parobj == 'module' and intr.generic %}{{ intr.permission }}{% endif %}
+      <h3>
+        {% if intr.parobj == "module" and intr.generic %}
+          {{ intr.permission }}
+        {% endif %}
         interface
-        {%- if intr.generic %} {{ intr | relurl(page_url) }} {% endif -%}
+        {%- if intr.generic %}
+          {{ intr | relurl(page_url) }}
+        {% endif -%}
         {{ deprecated(intr) }}
       </h3>
     </div>
-    {% if intr.doc or (meta_list(intr.meta)|trim and not intr.visible) %}
+    {% if intr.doc or (meta_list(intr.meta) | trim and not intr.visible) %}
       <div class="card-body">
         {% if not intr.visible %}
           {{ meta_list(intr.meta) }}
@@ -413,14 +471,10 @@
     <ul class="list-group">
       {% if intr.generic %}
         {% for proc in intr.routines %}
-          <li class="list-group-item">
-            {{ proc_summary(proc, full_docstring=full_docstring) }}
-          </li>
+          <li class="list-group-item">{{ proc_summary(proc, full_docstring=full_docstring) }}</li>
         {% endfor %}
         {% for proc in intr.modprocs %}
-          <li class="list-group-item">
-            {{ proc_summary(proc.procedure, full_docstring=full_docstring) }}
-          </li>
+          <li class="list-group-item">{{ proc_summary(proc.procedure, full_docstring=full_docstring) }}</li>
         {% endfor %}
         {%- if intr.variables -%}
           <li class="list-group-item">
@@ -429,9 +483,7 @@
           </li>
         {%- endif -%}
       {% else %}
-        <li class="list-group-item">
-          {{ proc_summary(intr.procedure, full_docstring=full_docstring) }}
-        </li>
+        <li class="list-group-item">{{ proc_summary(intr.procedure, full_docstring=full_docstring) }}</li>
       {% endif %}
     </ul>
   </div>
@@ -439,39 +491,61 @@
 
 {% macro absinterface(intr) %}
   <div class="card">
-    <div class="card-header codesum"><span class="anchor" id="{{ intr.anchor }}"></span><h3>abstract interface
-        {{ deprecated(intr) }}
-    </h3></div>
-    {% if intr.doc or meta_list(intr.meta)|trim %}
+    <div class="card-header codesum">
+      <span class="anchor" id="{{ intr.anchor }}"></span>
+      <h3>abstract interface {{ deprecated(intr) }}</h3>
+    </div>
+    {% if intr.doc or meta_list(intr.meta) | trim %}
       <div class="card-body">
         {{ meta_list(intr.meta) }}
-        {{ intr | meta('summary') }}
+        {{ intr | meta("summary") }}
       </div>
     {% endif %}
     <ul class="list-group">
-      <li class="list-group-item">
-        {{ proc_summary(intr.procedure) }}
-      </li>
+      <li class="list-group-item">{{ proc_summary(intr.procedure) }}</li>
     </ul>
   </div>
 {% endmacro %}
 
 {% macro proc_line(proc, link=True, proto=False) %}
-  {% if proc.mp %}module procedure {% if not proc.parent or (proc.visible and link) %}{{ page_url }} {{ proc | relurl(page_url) }}{% else %}{{ proc.name }}{% endif %}<!-- prettier-ignore-start --><small><!-- prettier-ignore-end -->{% endif -%}
-  {% if (proc.parobj == 'module' or (proc.parobj == 'interface' and proc.parent.parobj == 'module')) and not proto %}{{ proc.permission }} {% endif -%}
-  {{ proc.attribs | join(" ") }} {{ proc.proctype |lower }}
-  {%- if not proc.parent or (proc.visible and link and not proc.mp) %} {{ proc | relurl(page_url) }}{% else %} {{ proc.name }}{% endif -%}
+  {% if proc.mp %}
+    module procedure
+    {% if not proc.parent or (proc.visible and link) %}
+      {{ page_url }}
+      {{ proc | relurl(page_url) }}
+    {% else %}
+      {{ proc.name }}
+    {% endif %}
+    <!-- prettier-ignore-start --><small><!-- prettier-ignore-end -->
+  {% endif -%}
+  {% if (proc.parobj == "module" or (proc.parobj == "interface" and proc.parent.parobj == "module")) and not proto %}
+    {{ proc.permission }}
+  {% endif -%}
+  {{ proc.attribs | join(" ") }}
+  {{ proc.proctype | lower }}
+  {%- if not proc.parent or (proc.visible and link and not proc.mp) %}
+    {{ proc | relurl(page_url) }}
+  {% else %}
+    {{ proc.name }}
+  {% endif -%}
   ({{ proc.args | join(", ") }})
-  {%- if proc.proctype|lower == 'function' and proc.name != proc.retvar.name %} result({{ proc.retvar.name }}){% endif -%}
-  {% if proc.bindC %} bind({{ proc.bindC }}){% endif %}
-  {% if proc.mp %}<!-- prettier-ignore-start --></small><!-- prettier-ignore-end -->{% endif %}
+  {%- if proc.proctype | lower == "function" and proc.name != proc.retvar.name %}
+    result({{ proc.retvar.name }})
+  {% endif -%}
+  {% if proc.bindC %}
+    bind({{ proc.bindC }})
+  {% endif %}
+  {% if proc.mp %}
+    <!-- prettier-ignore-start --></small><!-- prettier-ignore-end -->
+  {% endif %}
   {{ deprecated(proc) }}
   {% if proc.module and proc.module != True and proc.module.visible %}
-    {% set label = "Implementation" if proc.parobj == 'interface' else "Interface" %}
-    <a href="../{{ proc.module.get_url() }}"><button type="button" class="btn btn-info depwarn">{{ label }} →</button></a>
+    {% set label = "Implementation" if proc.parobj == "interface" else "Interface" %}
+    <a href="../{{ proc.module.get_url() }}"
+      ><button class="btn btn-info depwarn" type="button">{{ label }} →</button></a
+    >
   {% endif %}
 {% endmacro %}
-
 
 {% macro final(proc) %}
   <div class="card">
@@ -484,9 +558,7 @@
       {{ docstring(proc) }}
     </div>
     <ul class="list-group">
-      <li class="list-group-item">
-        {{ proc_summary(proc.procedure, title=True, full_docstring=False) }}
-      </li>
+      <li class="list-group-item">{{ proc_summary(proc.procedure, title=True, full_docstring=False) }}</li>
     </ul>
   </div>
 {% endmacro %}
@@ -503,11 +575,19 @@
       <span class="anchor" id="{{ dtype.anchor }}"></span>
       <h3>
         type
-        {%- if dtype.parobj == 'module' %}, {{ dtype.permission }}{% endif -%}
-        {%- if dtype.sequence %}, sequence {% endif -%}
-        {%- if dtype.attribs %}, {{ dtype.attribs | join(", ") }}{% endif -%}
-        {%- if dtype.extends %}, extends({{ dtype.extends | relurl(page_url) }}){% endif -%}&nbsp;::&nbsp;
-        {{ dtype | relurl(page_url) }}
+        {%- if dtype.parobj == "module" %}
+          , {{ dtype.permission }}
+        {% endif -%}
+        {%- if dtype.sequence %}
+          , sequence
+        {% endif -%}
+        {%- if dtype.attribs %}
+          , {{ dtype.attribs | join(", ") }}
+        {% endif -%}
+        {%- if dtype.extends %}
+          , extends({{ dtype.extends | relurl(page_url) }})
+        {% endif -%}
+        &nbsp;::&nbsp; {{ dtype | relurl(page_url) }}
         {{ deprecated(dtype) }}
       </h3>
     </div>
@@ -515,7 +595,7 @@
       {% if not dtype.visible %}
         {{ meta_list(dtype.meta) }}
       {% endif %}
-      {{ dtype | meta('summary') }}
+      {{ dtype | meta("summary") }}
 
       {% if dtype.variables %}
         <h4>Components</h4>
@@ -524,26 +604,28 @@
 
       {% if dtype.constructor %}
         <h4>Constructor</h4>
-        {% if dtype.constructor.obj == 'interface' %}
+        {% if dtype.constructor.obj == "interface" %}
           {{ docstring(dtype.constructor, full_docstring=False) }}
         {% endif %}
-        <table class="table table-striped varlist">
+        <table class="table-striped varlist table">
           <tbody>
-            {% if dtype.constructor.obj == 'proc' %}
+            {% if dtype.constructor.obj == "proc" %}
               <tr>
                 <td>{{ proc_line(dtype.constructor) }}</td>
                 <td>{{ docstring(dtype.constructor, full_docstring=False) }}</td>
               </tr>
-            {% elif dtype.constructor.obj == 'interface' %}
-              {% for proc in dtype.constructor.routines|list + dtype.constructor.modprocs|map(attribute="procedure")|list %}
+            {% elif dtype.constructor.obj == "interface" %}
+              {% for proc in dtype.constructor.routines | list + dtype.constructor.modprocs | map(attribute="procedure") | list %}
                 <tr>
                   <td>
                     {{ display_permission(proc) }}
                     {{ proc.attribs | join(", ") }}
-                    {{ proc.proctype|lower }}
+                    {{ proc.proctype | lower }}
                     <strong>{{ proc }}</strong>
                     ({{ proc.args | join(", ") }})
-                    {% if proc.bindC -%}, bind({{ proc.bindC }}){% endif %}
+                    {% if proc.bindC -%}
+                      , bind({{ proc.bindC }})
+                    {% endif %}
                   </td>
                   <td>{{ docstring(proc, full_docstring=False) }}</td>
                 </tr>
@@ -555,12 +637,12 @@
 
       {% if dtype.finalprocs %}
         <h4>Finalizations Procedures</h4>
-        <table class="table table-striped varlist">
+        <table class="table-striped varlist table">
           <tbody>
             {% for fin in dtype.finalprocs %}
               <tr>
                 <td>final :: <strong>{{ fin.name }}</strong></td>
-                <td>{{ fin | meta('summary') }}</td>
+                <td>{{ fin | meta("summary") }}</td>
               </tr>
             {% endfor %}
           </tbody>
@@ -569,14 +651,14 @@
 
       {% if dtype.boundprocs %}
         <h4>Type-Bound Procedures</h4>
-        <table class="table table-striped varlist">
+        <table class="table-striped varlist table">
           <tbody>
             {% for tb in dtype.boundprocs %}
               <tr>
                 <td>{{ bound_declaration(tb, link_name=True) }}</td>
-                <td>{{ tb | meta('summary') | relurl(page_url) }}</td>
+                <td>{{ tb | meta("summary") | relurl(page_url) }}</td>
               </tr>
-              {% endfor %}
+            {% endfor %}
           </tbody>
         </table>
       {% endif %}
@@ -589,19 +671,24 @@
     <div class="card-header codesum">
       <span class="anchor" id="{{ com.anchor }}"></span>
       <h3>
-        <a href="#"
-           data-bs-toggle="popover"
-           data-bs-html="true"
-           data-bs-trigger="focus"
-           data-bs-title="Used elsewhere:"
-           data-bs-content="{{ common_popover(com) }}">
-           common{% if com.name %} /{{ com.name }}/{% endif %}
+        <a
+          data-bs-content="{{ common_popover(com) }}"
+          data-bs-html="true"
+          data-bs-title="Used elsewhere:"
+          data-bs-toggle="popover"
+          data-bs-trigger="focus"
+          href="#"
+        >
+          common
+          {% if com.name %}
+            /{{ com.name }}/
+          {% endif %}
         </a>
         {{ deprecated(com) }}
       </h3>
     </div>
     <div class="card-body">
-      {% if meta_list(com.meta)|trim %}
+      {% if meta_list(com.meta) | trim %}
         {{ meta_list(com.meta) }}
       {% endif %}
       {{ com.doc }}
@@ -613,8 +700,8 @@
   <script>
     // Enable Bootstrap popovers
     (function () {
-      const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
-      const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
+      const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
+      const popoverList = [...popoverTriggerList].map((popoverTriggerEl) => new bootstrap.Popover(popoverTriggerEl));
     })();
   </script>
 {% endmacro %}
@@ -622,28 +709,53 @@
 {% macro common_popover(common) %}
   {%- for item in common.other_uses -%}
     {%- if item != common -%}
-      <a href="../{{ item.get_url() }}">{% if item.parent.name -%}{{ item.parent.name }}{%- else -%}<em>unnamed</em>{%- endif %}</a>
-      ({% if item.parobj == 'proc' -%}{{ item.parent.proctype|lower }}{%- else -%}{{ item.parobj }}{%- endif %})<br>
+      <a href="../{{ item.get_url() }}">
+        {% if item.parent.name -%}
+          {{ item.parent.name }}
+        {%- else -%}
+          <em>unnamed</em>
+        {%- endif %}
+      </a>
+      (
+      {% if item.parobj == "proc" -%}
+        {{ item.parent.proctype | lower }}
+      {%- else -%}
+        {{ item.parobj }}
+      {%- endif %}
+      )<br>
     {%- endif -%}
   {%- endfor -%}
 {% endmacro %}
 
 {% macro enum_entry(enum) %}
   <div class="card">
-    <div class="card-header codesum"><span class="anchor" id="{{ enum.anchor }}"></span><h3>enum, bind(c){{ deprecated(enum) }}</h3></div>
+    <div class="card-header codesum">
+      <span class="anchor" id="{{ enum.anchor }}"></span>
+      <h3>enum, bind(c){{ deprecated(enum) }}</h3>
+    </div>
     <div class="card-body">
       <h4>Enumerators</h4>
-      <table class="table table-striped varlist">
+      <table class="table-striped varlist table">
         <tbody>
           {% for var in enum.variables %}
             <tr>
-              <td>{{ var.vartype }}</td><td>::</td>
-              <td><strong>{{ var.name }}</strong></td><td> = </td><td>{{ var.initial }}</td><td>{% if summary -%}{{ var | meta('summary') }}{% else %}{{ var.doc }}{% endif %}</td>
+              <td>{{ var.vartype }}</td>
+              <td>::</td>
+              <td><strong>{{ var.name }}</strong></td>
+              <td>=</td>
+              <td>{{ var.initial }}</td>
+              <td>
+                {% if summary -%}
+                  {{ var | meta("summary") }}
+                {% else %}
+                  {{ var.doc }}
+                {% endif %}
+              </td>
             </tr>
           {% endfor %}
         </tbody>
       </table>
-      {% if enum.doc or meta_list(enum.meta)|trim %}
+      {% if enum.doc or meta_list(enum.meta) | trim %}
         <h4>Description</h4>
         {{ meta_list(enum.meta) }}
         {{ enum.doc }}
@@ -654,10 +766,11 @@
 
 {% macro proc_entry(proc) %}
   <div class="card">
-    <div class="card-header codesum"><span class="anchor" id="{{ proc.anchor }}"></span>{{ honkle }} <h3>{{ proc_line(proc) }}</h3></div>
-    <div class="card-body">
-      {{ proc_summary(proc,False) }}
+    <div class="card-header codesum">
+      <span class="anchor" id="{{ proc.anchor }}"></span>{{ honkle }}
+      <h3>{{ proc_line(proc) }}</h3>
     </div>
+    <div class="card-body">{{ proc_summary(proc, False) }}</div>
   </div>
 {% endmacro %}
 
@@ -668,9 +781,7 @@
       <span class="anchor" id="{{ namelist.anchor }}"></span>
       <h3>Namelist {{ namelist | relurl(page_url) }}</h3>
     </div>
-    <div class="card-body">
-      {{ namelist_summary(namelist, False) }}
-    </div>
+    <div class="card-body">{{ namelist_summary(namelist, False) }}</div>
   </div>
 {% endmacro %}
 
@@ -680,13 +791,15 @@
   <br class="visible-xs visible-sm hidden-md">
   <section>
     <h2>Variables</h2>
-    <table class="table table-striped" id="{{ namelist.anchor }}">
-      <thead><tr>
+    <table class="table-striped table" id="{{ namelist.anchor }}">
+      <thead>
+        <tr>
           <th>Name</th>
           <th>Type</th>
           <th>Default</th>
           <th>Description</th>
-      </tr></thead>
+        </tr>
+      </thead>
       <tbody>
         {% for variable in namelist.variables %}
           {{ namelist_row(variable, full_docstring) }}
@@ -736,22 +849,21 @@
                 <li><h5>Ancestors:</h5></li>
                 {% for ancestor in obj.ancestry %}
                   <li class="list-inline-item">{{ ancestor | relurl(page_url) }}</li>
-                  {% if not loop.last -%}<li>:</li>{%- endif %}
-                  {% endfor %}
+                  {% if not loop.last -%}
+                    <li>:</li>
+                  {%- endif %}
+                {% endfor %}
               </ul>
             </li>
           {% endif %}
           {% if obj.usesgraph %}
-            <li class="list-group-item">
-              {{ obj.usesgraph }}
-            </li>
+            <li class="list-group-item">{{ obj.usesgraph }}</li>
           {% endif %}
         </ul>
       </div>
     </div>
   {% endif %}
 {% endmacro %}
-
 
 {% macro usedby_list(obj) %}
   {% if obj.usedbygraph or obj.descendants %}
@@ -770,9 +882,7 @@
             </li>
           {% endif %}
           {% if obj.usedbygraph %}
-            <li class="list-group-item">
-              {{ obj.usedbygraph }}
-            </li>
+            <li class="list-group-item">{{ obj.usedbygraph }}</li>
           {% endif %}
         </ul>
       </div>
@@ -780,29 +890,35 @@
   {% endif %}
 {% endmacro %}
 
-
 {% macro meta_list(meta) %}
   {% if meta.author or meta.date or meta.license or meta.version or meta.category %}
     <dl class="dl-horizontal">
       {% if meta.author %}
-        <dt>Author</dt><dd>{{ meta.author }}</dd>
+        <dt>Author</dt>
+        <dd>{{ meta.author }}</dd>
       {% endif %}
       {% if meta.date %}
-        <dt>Date</dt><dd>{{ meta.date }}</dd>
+        <dt>Date</dt>
+        <dd>{{ meta.date }}</dd>
       {% endif %}
       {% if meta.license %}
-        <dt>License</dt><dd>{{ meta.license }}</dd>
-      {% elif projectData['license'] %}
-        <dt>License</dt><dd>{{ projectData['license'] }}</dd>
+        <dt>License</dt>
+        <dd>{{ meta.license }}</dd>
+      {% elif projectData["license"] %}
+        <dt>License</dt>
+        <dd>{{ projectData["license"] }}</dd>
       {% endif %}
       {% if meta.since %}
-        <dt>Since</dt><dd>{{ meta.since }}</dd>
+        <dt>Since</dt>
+        <dd>{{ meta.since }}</dd>
       {% endif %}
       {% if meta.version %}
-        <dt>Version</dt><dd>{{ meta.version }}</dd>
+        <dt>Version</dt>
+        <dd>{{ meta.version }}</dd>
       {% endif %}
       {% if meta.category %}
-        <dt>Category</dt><dd>{{ meta.category }}</dd>
+        <dt>Category</dt>
+        <dd>{{ meta.category }}</dd>
       {% endif %}
     </dl>
   {% endif %}
