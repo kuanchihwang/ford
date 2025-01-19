@@ -21,17 +21,19 @@
       {{ summary }}
       {% if project_links %}
         <p>Find us on…</p>
-      <p>
+        <p>
         {{ project_link_button(project_github, "GitHub") }}
         {{ project_link_button(project_gitlab, "Gitlab") }}
         {{ project_link_button(project_bitbucket, "Bitbucket") }}
         {{ project_link_button(project_sourceforge, "Sourceforge") }}
         {{ project_link_button(project_website, "The Web") }}
+        </p>
       {% endif %}
       {% if project_download %}
+        <p>
         <a class="btn btn-lg btn-danger float-end" href="{{ project_download }}" role="button">Download the Source</a>
+        </p>
       {% endif %}
-      </p>
     </div>
   {% endif %}
 
