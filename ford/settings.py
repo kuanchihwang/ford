@@ -33,15 +33,15 @@ except ModuleNotFoundError:
 FAVICON_PATH = Path("favicon.png")
 
 INTRINSIC_MODS = {
-    "iso_fortran_env": "http://fortranwiki.org/fortran/show/iso_fortran_env",
-    "iso_c_binding": "http://fortranwiki.org/fortran/show/iso_c_binding",
-    "ieee_arithmetic": "http://fortranwiki.org/fortran/show/ieee_arithmetic",
-    "ieee_exceptions": "http://fortranwiki.org/fortran/show/IEEE+arithmetic",
-    "ieee_features": "http://fortranwiki.org/fortran/show/IEEE+arithmetic",
-    "openacc": "https://www.openacc.org/sites/default/files/inline-images/Specification/OpenACC.3.0.pdf#page=85",
-    "omp_lib": "https://www.openmp.org/spec-html/5.1/openmpch3.html#x156-1890003",
-    "mpi": "http://www.mpi-forum.org/docs/mpi-3.1/mpi31-report/node410.htm",
-    "mpi_f08": "http://www.mpi-forum.org/docs/mpi-3.1/mpi31-report/node409.htm",
+    "ieee_arithmetic": "https://www.intel.com/content/www/us/en/docs/fortran-compiler/developer-guide-reference/2024-2/ieee-intrinsic-modules-and-procedures.html",
+    "ieee_exceptions": "https://www.intel.com/content/www/us/en/docs/fortran-compiler/developer-guide-reference/2024-2/ieee-intrinsic-modules-and-procedures.html",
+    "ieee_features": "https://www.intel.com/content/www/us/en/docs/fortran-compiler/developer-guide-reference/2024-2/ieee-intrinsic-modules-and-procedures.html",
+    "iso_c_binding": "https://www.intel.com/content/www/us/en/docs/fortran-compiler/developer-guide-reference/2024-2/iso-c-binding-module.html",
+    "iso_fortran_env": "https://www.intel.com/content/www/us/en/docs/fortran-compiler/developer-guide-reference/2024-2/iso-fortran-env-module.html",
+    "mpi": "https://www.mpi-forum.org/docs/mpi-4.1/mpi41-report/node467.htm",
+    "mpi_f08": "https://www.mpi-forum.org/docs/mpi-4.1/mpi41-report/node466.htm",
+    "omp_lib": "https://www.intel.com/content/www/us/en/docs/fortran-compiler/developer-guide-reference/2024-2/openmp-runtime-library-routines.html",
+    "openacc": "https://www.openacc.org/sites/default/files/inline-images/Specification/OpenACC-3.3-final.pdf#section.3.1",
 }
 
 # Mapping from key to separator for settings that are dicts. Required
