@@ -242,6 +242,7 @@
     </tbody>
   </table>
 {% endmacro %}
+<!-- prettier-ignore-start -->
 
 {%- macro header(size, small=False) -%}
   {%- if small -%}
@@ -259,6 +260,7 @@
   {%- endif -%}
 {%- endmacro -%}
 
+<!-- prettier-ignore-end -->
 {%- macro docstring(entity, full_docstring=True) -%}
   {# Display either the full docstring or just the summary #}
   {%- if full_docstring or not entity.visible -%}
@@ -463,14 +465,14 @@
 {% endmacro %}
 
 {% macro proc_line(proc, link=True, proto=False) %}
-  {% if proc.mp %}module procedure {% if not proc.parent or (proc.visible and link) %}{{ page_url }} {{ proc | relurl(page_url) }}{% else %}{{ proc.name }}{% endif %} <small>{% endif -%}
+  {% if proc.mp %}module procedure {% if not proc.parent or (proc.visible and link) %}{{ page_url }} {{ proc | relurl(page_url) }}{% else %}{{ proc.name }}{% endif %}<!-- prettier-ignore-start --><small><!-- prettier-ignore-end -->{% endif -%}
   {% if (proc.parobj == 'module' or (proc.parobj == 'interface' and proc.parent.parobj == 'module')) and not proto %}{{ proc.permission }} {% endif -%}
   {{ proc.attribs | join(" ") }} {{ proc.proctype |lower }}
   {%- if not proc.parent or (proc.visible and link and not proc.mp) %} {{ proc | relurl(page_url) }}{% else %} {{ proc.name }}{% endif -%}
   ({{ proc.args | join(", ") }})
   {%- if proc.proctype|lower == 'function' and proc.name != proc.retvar.name %} result({{ proc.retvar.name }}){% endif -%}
   {% if proc.bindC %} bind({{ proc.bindC }}){% endif %}
-  {% if proc.mp %}</small>{% endif %}
+  {% if proc.mp %}<!-- prettier-ignore-start --></small><!-- prettier-ignore-end -->{% endif %}
   {{ deprecated(proc) }}
   {% if proc.module and proc.module != True and proc.module.visible %}
     {% set label = "Implementation" if proc.parobj == 'interface' else "Interface" %}
