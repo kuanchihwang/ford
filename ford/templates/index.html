@@ -15,7 +15,7 @@
 {% extends "base.html" %}
 {% block body %}
   <!-- Main component for a primary marketing message or call to action -->
-  {% set project_links = project_github or project_bitbucket or project_gitlab or project_sourceforge or project_website %}
+  {% set project_links = project_github or project_gitlab or project_bitbucket or project_sourceforge or project_website %}
   {% if summary or project_links or project_download %}
     <div class="p-5 mb-4 bg-light border rounded-3" id="jumbotron">
       {{ summary }}
@@ -23,9 +23,9 @@
         <p>Find us on…</p>
       <p>
         {{ project_link_button(project_github, "GitHub") }}
-        {{ project_link_button(project_gitlab, "Gitlab") }}
+        {{ project_link_button(project_gitlab, "GitLab") }}
         {{ project_link_button(project_bitbucket, "Bitbucket") }}
-        {{ project_link_button(project_sourceforge, "Sourceforge") }}
+        {{ project_link_button(project_sourceforge, "SourceForge") }}
         {{ project_link_button(project_website, "The Web") }}
       {% endif %}
       {% if project_download %}
