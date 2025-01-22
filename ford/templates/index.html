@@ -19,19 +19,23 @@
   {% if summary or project_links or project_download %}
     <div class="p-5 mb-4 bg-light border rounded-3" id="jumbotron">
       {{ summary }}
-      {% if project_links %}
-        <p>Find us on…</p>
-      <p>
-        {{ project_link_button(project_github, "GitHub") }}
-        {{ project_link_button(project_gitlab, "GitLab") }}
-        {{ project_link_button(project_bitbucket, "Bitbucket") }}
-        {{ project_link_button(project_sourceforge, "SourceForge") }}
-        {{ project_link_button(project_website, "The Web") }}
+      {% if project_links or project_download %}
+        {% if project_links %}
+          <p>Find us on…</p>
+        {% endif %}
+        <p>
+        {% if project_links %}
+          {{ project_link_button(project_github, "GitHub") }}
+          {{ project_link_button(project_gitlab, "GitLab") }}
+          {{ project_link_button(project_bitbucket, "Bitbucket") }}
+          {{ project_link_button(project_sourceforge, "SourceForge") }}
+          {{ project_link_button(project_website, "The Web") }}
+        {% endif %}
+        {% if project_download %}
+          <a class="btn btn-lg btn-danger float-end" href="{{ project_download }}" role="button">Download the Source</a>
+        {% endif %}
+        </p>
       {% endif %}
-      {% if project_download %}
-        <a class="btn btn-lg btn-danger float-end" href="{{ project_download }}" role="button">Download the Source</a>
-      {% endif %}
-      </p>
     </div>
   {% endif %}
 
