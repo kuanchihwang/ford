@@ -1,9 +1,9 @@
 <!-- -*- mode: jinja2 -*- -->
 
+{% import "macros.html" as macros %}
 {% extends "base.html" %}
 {% block title %}{{ procedure.name }} – {{ project }}{% endblock title %}
 {% block body %}
-  {% import 'macros.html' as macros %}
   <div class="row">
     <h1>{{ procedure.name }}
       <small>{% if procedure.module %}Module {% endif %}{% if not procedure.mp %}{{ procedure.proctype }}{% else %}Procedure{% endif %}</small>

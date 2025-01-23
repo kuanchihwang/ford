@@ -1,9 +1,9 @@
 <!-- -*- mode: jinja2 -*- -->
 
+{% import "macros.html" as macros %}
 {% extends "base.html" %}
 {% block title %}{{ interface.name }} – {{ project }}{% endblock title %}
 {% block body %}
-  {% import 'macros.html' as macros %}
   <div class="row">
     <h1>{{ interface.name }}
       <small>{% if interface.abstract -%}Abstract {% endif %}Interface</small>
