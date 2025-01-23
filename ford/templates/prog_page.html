@@ -1,9 +1,9 @@
 <!-- -*- mode: jinja2 -*- -->
 
+{% import "macros.html" as macros %}
 {% extends "base.html" %}
 {% block title %}{% if program.name %}{{ program.name }}{% else %}unnamed{% endif %} – {{ project }}{% endblock title %}
 {% block body %}
-  {% import 'macros.html' as macros %}
   <div class="row">
     <h1>{% if program.name -%}{{ program.name }}{% else %}<em>unnamed</em>{% endif %}
       <small>Program</small>
