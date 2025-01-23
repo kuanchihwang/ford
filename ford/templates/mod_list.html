@@ -5,12 +5,6 @@
 All Modules – {{ project }}
 {% endblock title %}
 {% block body %}
-{% macro mod_entry(mod,level) %}
-    <tr><td>{{ mod }}</td><td>{{ mod.parent }}</td><td>{{ mod.meta.summary }}</td></tr>
-    {% for m in mod.descendants %}
-        
-    {% endfor %}
-{% endmacro %}
       <div class="row">
         <div class="col-lg-12" id="text">
 			 <h1>Modules</h1>
