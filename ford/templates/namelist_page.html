@@ -1,11 +1,7 @@
 <!-- -*- mode: jinja2 -*- -->
 
 {% extends "base.html" %}
-
-{% block title %}
-  {{ namelist.name }} – {{ project }}
-{% endblock title %}
-
+{% block title %}{{ namelist.name }} – {{ project }}{% endblock title %}
 {% block body %}
   {% import "macros.html" as macros %}
   <div class="row">
