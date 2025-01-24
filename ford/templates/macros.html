@@ -509,10 +509,11 @@
       <span class="anchor" id="{{ dtype.anchor }}"></span>
       <h3>
         type
-        {%- if dtype.parobj == 'module' %}, {{ dtype.permission }}{% endif -%}
-        {%- if dtype.sequence %}, sequence {% endif -%}
+        {%- if dtype.parobj == "module" %}, {{ dtype.permission }}{% endif -%}
+        {%- if dtype.sequence %}, sequence{% endif -%}
         {%- if dtype.attribs %}, {{ dtype.attribs | join(", ") }}{% endif -%}
-        {%- if dtype.extends %}, extends({{ dtype.extends | relurl(page_url) }}){% endif -%}&nbsp;::&nbsp;
+        {%- if dtype.extends %}, extends({{ dtype.extends | relurl(page_url) }}){% endif -%}
+        {{- " :: " -}}
         {{ dtype | relurl(page_url) }}
         {{ deprecated(dtype) }}
       </h3>
