@@ -50,8 +50,9 @@
               <h2 class="card-title">Developer Info</h2>
               <h4 class="card-text">{{ author }}</h4>
               <p class="card-text">{{ author_description }}</p>
-              {% if github or bitbucket or facebook or twitter or google_plus or linkedin or email or website %}
-                <div class="text-center"><div class="btn-group" role="group">
+              {% if email or website or github or gitlab or bitbucket or facebook or google_plus or linkedin or twitter %}
+                <div class="text-center">
+                  <div class="btn-group" role="group">
                     {% if email %}
                       <a class="btn btn-lg btn-primary" href="mailto:{{ email }}"><i class="fa fa-envelope fa-lg"></i></a>
                     {% endif %}
@@ -63,7 +64,8 @@
                     {{ dev_link_button(google_plus, "fa-google-plus") }}
                     {{ dev_link_button(linkedin, "fa-linkedin") }}
                     {{ dev_link_button(twitter, "fa-twitter") }}
-                </div></div>
+                  </div>
+                </div>
               {% endif %}
             </div>
           </div>
