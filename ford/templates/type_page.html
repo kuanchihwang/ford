@@ -20,10 +20,12 @@
     <div class="col-md-9" id="text">
       <h2 id="type-def-statement">
         type
-        {%- if dtype.parobj == 'module' %}, {{ dtype.permission }}{% endif -%}
+        {%- if dtype.parobj == "module" %}, {{ dtype.permission }}{% endif -%}
+        {%- if dtype.sequence %}, sequence{% endif -%}
         {%- if dtype.attribs %}, {{ dtype.attribs | join(", ") }}{% endif -%}
-        {%- if dtype.extends %}, extends({{ dtype.extends | relurl(page_url) }}){% endif %} :: {{ dtype.name }}
-        {%- if dtype.sequence %}<br>sequence{% endif -%}
+        {%- if dtype.extends %}, extends({{ dtype.extends | relurl(page_url) }}){% endif -%}
+        {{- " :: " -}}
+        {{ dtype.name }}
       </h2>
     {{ dtype.doc }}
     {% if dtype.inherbygraph or dtype.inhergraph %}<br>{% endif %}
