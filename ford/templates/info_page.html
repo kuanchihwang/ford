@@ -5,7 +5,7 @@
 {% block body %}
   <div class="row">
     <h1>{{ page.title }}</h1>
-    <div class="container p-2 mb-4 bg-light border rounded-3">
+    <div class="bg-light rounded-3 container mb-4 border p-2">
       <div class="row align-items-center justify-content-between">
         <div class="col">
           <ul class="list-inline">
@@ -37,17 +37,23 @@
         <div class="card card-body bg-light" id="sidebar-toc">
           <ul class="nav flex-column align-items">
             <li class="nav-item">
-              <a class="nav-link{% if pages==page %} active disabled{% endif %}" href="{{ pages.url | relurl(page_url) }}">{{ pages.title }}</a>
+              <a
+                class="nav-link{% if pages == page %}active disabled{% endif %}"
+                href="{{ pages.url | relurl(page_url) }}"
+                >{{ pages.title }}</a
+              >
             </li>
           </ul>
           <hr>
           <nav class="nav nav-pills flex-column">
             {% for subpage in pages.subpages recursive %}
-              <a class="nav-link{% if subpage==page %} active disabled{% endif %}" href="{{ subpage.url | relurl(page_url) }}">{{ subpage.title }}</a>
+              <a
+                class="nav-link{% if subpage == page %}active disabled{% endif %}"
+                href="{{ subpage.url | relurl(page_url) }}"
+                >{{ subpage.title }}</a
+              >
               {% if subpage.subpages %}
-                <nav class="nav nav-pills flex-column">
-                  {{ loop(subpage.subpages) }}
-                </nav>
+                <nav class="nav nav-pills flex-column">{{ loop(subpage.subpages) }}</nav>
               {% endif %}
             {% endfor %}
           </nav>
@@ -55,8 +61,6 @@
       </div>
     {% endif %}
 
-    <div class="col-9" id="text">
-      {{ page.contents }}
-    </div>
+    <div class="col-9" id="text">{{ page.contents }}</div>
   </div>
 {% endblock body %}

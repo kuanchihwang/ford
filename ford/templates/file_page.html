@@ -5,16 +5,15 @@
 {% block title %}{{ src.name }} – {{ project }}{% endblock title %}
 {% block body %}
   <div class="row">
-    <h1>{{ src.name }}
+    <h1>
+      {{ src.name }}
       <small>Source File</small>
       {{ macros.deprecated(src) }}
     </h1>
     {{ macros.info_bar(src, incl_src, project_url, src.lines_description(project.file_lines)) }}
   </div>
   <div class="row">
-    <div class="col-md-3 hidden-xs hidden-sm visible-md visible-lg">
-      {{ macros.sidebar(project,src) }}
-    </div>
+    <div class="col-md-3 hidden-xs hidden-sm visible-md visible-lg">{{ macros.sidebar(project, src) }}</div>
     <div class="col-md-9" id="text">
       {{ src.doc }}
       <br>
@@ -23,9 +22,7 @@
           <div class="card-header">
             <h3 class="card-title">This file depends on</h3>
           </div>
-          <div class="card-body">
-            {{ src.efferentgraph }}
-          </div>
+          <div class="card-body">{{ src.efferentgraph }}</div>
         </div>
       {% endif %}
       {% if src.afferentgraph %}
@@ -33,9 +30,7 @@
           <div class="card-header">
             <h3 class="card-title">Files dependent on this one</h3>
           </div>
-          <div class="card-body">
-            {{ src.afferentgraph }}
-          </div>
+          <div class="card-body">{{ src.afferentgraph }}</div>
         </div>
       {% endif %}
       {% if src.doc or src.efferentgraph or src.afferentgraph %}<br>{% endif %}
@@ -46,5 +41,4 @@
       </section>
     </div>
   </div>
-
 {% endblock body %}
