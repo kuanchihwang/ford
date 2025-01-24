@@ -5,17 +5,16 @@
 {% block title %}{{ module.name }} – {{ project }}{% endblock title %}
 {% block body %}
   <div class="row">
-    <h1>{{ module.name }}
-      <small>{% if module.obj == 'submodule' %}Submodule{% else %}Module{% endif %}</small>
+    <h1>
+      {{ module.name }}
+      <small>{% if module.obj == "submodule" %}Submodule{% else %}Module{% endif %}</small>
       {{ macros.deprecated(module) }}
     </h1>
     {{ macros.info_bar(module, incl_src, project_url, module.lines_description(project.mod_lines)) }}
   </div>
 
   <div class="row">
-    <div class="col-md-3">
-      {{ macros.sidebar(project,module) }}
-    </div>
+    <div class="col-md-3">{{ macros.sidebar(project, module) }}</div>
 
     <div class="col-md-9" id="text">
       {{ module.doc }}
@@ -132,5 +131,4 @@
       {% endif %}
     </div>
   </div>
-
 {% endblock body %}
