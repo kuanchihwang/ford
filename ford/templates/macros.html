@@ -29,7 +29,7 @@
           {% if line_info %}
             <li class="list-inline-item" id="statements"><i class="fa fa-list-ol"></i>
               <a data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"
-                 title="{{ line_info }}">{{ entity | meta('num_lines') }} statements</a>
+                 title="{{ line_info | escape }}">{{ entity | meta('num_lines') }} statements</a>
             </li>
           {% endif %}
 
@@ -597,12 +597,12 @@
     <div class="card-header codesum">
       <span class="anchor" id="{{ com.anchor }}"></span>
       <h3>
-        <a href="#"
+        <a href="#{{ com.anchor }}"
            data-bs-toggle="popover"
+           data-bs-placement="bottom"
            data-bs-html="true"
-           data-bs-trigger="focus"
-           data-bs-title="Used elsewhere:"
-           data-bs-content="{{ common_popover(com) }}">
+           data-bs-content="{{ common_popover(com) | escape }}"
+           title="Used elsewhere:">
            common{% if com.name %} /{{ com.name }}/{% endif %}
         </a>
         {{ deprecated(com) }}
