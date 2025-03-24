@@ -1,9 +1,9 @@
 <!-- -*- mode: jinja2 -*- -->
 
-{% extends "base.html" %}s
-{% block title %}{{ src.name }} &ndash; {{ project }}{% endblock title %}
+{% import "macros.html" as macros %}
+{% extends "base.html" %}
+{% block title %}{{ src.name }} – {{ project }}{% endblock title %}
 {% block body %}
-  {% import 'macros.html' as macros %}
   <div class="row">
     <h1>{{ src.name }}
       <small>Source File</small>
@@ -15,7 +15,7 @@
     <div class="col-md-3 hidden-xs hidden-sm visible-md visible-lg">
       {{ macros.sidebar(project,src) }}
     </div>
-    <div class="col-md-9" id='text'>
+    <div class="col-md-9" id="text">
       {{ src.doc }}
       <br>
       {% if src.efferentgraph %}
@@ -38,7 +38,7 @@
           </div>
         </div>
       {% endif %}
-      {% if src.doc or src.efferentgraph or src.afferentgraph%}<br>{% endif %}
+      {% if src.doc or src.efferentgraph or src.afferentgraph %}<br>{% endif %}
 
       <section>
         <h2><span class="anchor" id="src"></span>Source Code</h2>

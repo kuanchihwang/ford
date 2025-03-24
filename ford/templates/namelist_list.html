@@ -1,14 +1,10 @@
 <!-- -*- mode: jinja2 -*- -->
 
 {% extends "base.html" %}
-
-{% block title %}
-All namelists &ndash; {{ project }}
-{% endblock %}
-
+{% block title %}All namelists – {{ project }}{% endblock title %}
 {% block body %}
   <div class="row">
-    <div class="col-lg-12" id='text'>
+    <div class="col-lg-12" id="text">
       <h1>Namelists</h1>
       <table class="table table-striped nostretch">
         <thead><tr><th>Namelist</th><th>Location</th><th>Description</th></tr></thead>
