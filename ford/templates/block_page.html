@@ -1,9 +1,9 @@
 <!-- -*- mode: jinja2 -*- -->
 
+{% import "macros.html" as macros %}
 {% extends "base.html" %}
-{% block title %}{{ blockdat.name|striptags }} &ndash; {{ project }}{% endblock title %}
+{% block title %}{{ blockdat.name|striptags }} – {{ project }}{% endblock title %}
 {% block body %}
-  {% import 'macros.html' as macros %}
   <div class="row">
     <h1>{{ blockdat.name }} 
       <small>Block Data</small>
@@ -17,7 +17,7 @@
     {{ macros.sidebar(project,blockdat) }}
     </div>
     
-    <div class="col-md-9" id='text'>
+    <div class="col-md-9" id="text">
     {{ macros.use_list(blockdat) }}
     {{ blockdat.doc }}
     <br>
@@ -30,11 +30,6 @@
       {% endfor %}
     </section>
     <br>
-    <script>
-      $(function () {
-      $('[data-bs-toggle="popover"]').popover()
-      })
-    </script>
     {% endif %}
 
     {% if blockdat.variables %}

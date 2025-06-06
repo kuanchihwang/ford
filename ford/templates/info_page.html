@@ -1,14 +1,14 @@
 <!-- -*- mode: jinja2 -*- -->
 
 {% extends "base.html" %}
-{% block title %}{{ page.title }} &ndash; {{ project }}{% endblock title %}
+{% block title %}{{ page.title }} – {{ project }}{% endblock title %}
 {% block body %}
   <div class="row">
     <h1>{{ page.title }}</h1>
     <div class="container p-2 mb-4 bg-light border rounded-3">
       <div class="row align-items-center justify-content-between">
         <div class="col">
-          <ul class="list-inline" style="margin-bottom:0px; display:inline">
+          <ul class="list-inline">
             {% if page.author %}
               <li class="list-inline-item" id="author"><i class="fa fa-pencil"></i> {{ page.author }}</li>
             {% endif %}
@@ -55,7 +55,7 @@
       </div>
     {% endif %}
 
-    <div class="col-9" id='text'>
+    <div class="col-9" id="text">
       {{ page.contents }}
     </div>
   </div>

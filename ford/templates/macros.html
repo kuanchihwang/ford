@@ -4,7 +4,7 @@
   <div class="container p-2 mb-4 bg-light border rounded-3">
     <div class="row align-items-center justify-content-between" id="info-bar">
       <div class="col">
-        <ul class="list-inline" style="margin-bottom:0px;display:inline">
+        <ul class="list-inline">
           {% if entity | meta('author') %}
             <li class="list-inline-item" id="meta-author"><i class="fa fa-pencil"></i> {{ entity | meta('author') }}</li>
           {% endif %}
@@ -29,7 +29,7 @@
           {% if line_info %}
             <li class="list-inline-item" id="statements"><i class="fa fa-list-ol"></i>
               <a data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"
-                 title="{{ line_info }}">{{ entity | meta('num_lines') }} statements</a>
+                 title="{{ line_info | escape }}">{{ entity | meta('num_lines') }} statements</a>
             </li>
           {% endif %}
 
@@ -52,7 +52,7 @@
               {% for item in entity.hierarchy[1:] %}
                 <li class="breadcrumb-item">{{ item | relurl(page_url) }}</li>
               {% endfor %}
-            {%endif%}
+            {% endif %}
             <li class="breadcrumb-item active" aria-current="page">{{ entity.name }}</li>
           </ol>
         </nav>
@@ -188,6 +188,7 @@
         <th scope="col">Name</th>
         {% if not intent %}<th></th><th scope="col">Initial</th>{% endif %}
         <th scope="col"></th>
+      </tr>
     </thead>
     {% set colnum = 6 + permission|int + intent|int %}
     <tbody>
@@ -473,7 +474,7 @@
   {{ deprecated(proc) }}
   {% if proc.module and proc.module != True and proc.module.visible %}
     {% set label = "Implementation" if proc.parobj == 'interface' else "Interface" %}
-    <a href="../{{ proc.module.get_url() }}"><button type="button" class="btn btn-info depwarn">{{ label }} &rarr;</button></a>
+    <a href="../{{ proc.module.get_url() }}"><button type="button" class="btn btn-info depwarn">{{ label }} →</button></a>
   {% endif %}
 {% endmacro %}
 
@@ -508,10 +509,11 @@
       <span class="anchor" id="{{ dtype.anchor }}"></span>
       <h3>
         type
-        {%- if dtype.parobj == 'module' %}, {{ dtype.permission }}{% endif -%}
-        {%- if dtype.sequence %}, sequence {% endif -%}
+        {%- if dtype.parobj == "module" %}, {{ dtype.permission }}{% endif -%}
+        {%- if dtype.sequence %}, sequence{% endif -%}
         {%- if dtype.attribs %}, {{ dtype.attribs | join(", ") }}{% endif -%}
-        {%- if dtype.extends %}, extends({{ dtype.extends | relurl(page_url) }}){% endif -%}&nbsp;::&nbsp;
+        {%- if dtype.extends %}, extends({{ dtype.extends | relurl(page_url) }}){% endif -%}
+        {{- " :: " -}}
         {{ dtype | relurl(page_url) }}
         {{ deprecated(dtype) }}
       </h3>
@@ -596,12 +598,12 @@
     <div class="card-header codesum">
       <span class="anchor" id="{{ com.anchor }}"></span>
       <h3>
-        <a href="#"
+        <a href="#{{ com.anchor }}"
            data-bs-toggle="popover"
+           data-bs-placement="bottom"
            data-bs-html="true"
-           data-bs-trigger="focus"
-           data-bs-title="Used elsewhere:"
-           data-bs-content="{{ common_popover(com) }}">
+           data-bs-content="{{ common_popover(com) | escape }}"
+           title="Used elsewhere:">
            common{% if com.name %} /{{ com.name }}/{% endif %}
         </a>
         {{ deprecated(com) }}
@@ -617,6 +619,13 @@
       {% endif %}
     </div>
   </div>
+  <script>
+    // Enable Bootstrap popovers
+    (function () {
+      const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
+      const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
+    })();
+  </script>
 {% endmacro %}
 
 {% macro common_popover(common) %}

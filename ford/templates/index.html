@@ -15,29 +15,33 @@
 {% extends "base.html" %}
 {% block body %}
   <!-- Main component for a primary marketing message or call to action -->
-  {% set project_links = project_github or project_bitbucket or project_gitlab or project_sourceforge or project_website %}
+  {% set project_links = project_github or project_gitlab or project_bitbucket or project_sourceforge or project_website %}
   {% if summary or project_links or project_download %}
     <div class="p-5 mb-4 bg-light border rounded-3" id="jumbotron">
       {{ summary }}
-      {% if project_links %}
-        <p> Find us on&hellip;</p>
-      <p>
-        {{ project_link_button(project_github, "GitHub") }}
-        {{ project_link_button(project_gitlab, "Gitlab") }}
-        {{ project_link_button(project_bitbucket, "Bitbucket") }}
-        {{ project_link_button(project_sourceforge, "Sourceforge") }}
-        {{ project_link_button(project_website, "The Web") }}
+      {% if project_links or project_download %}
+        {% if project_links %}
+          <p>Find us on…</p>
+        {% endif %}
+        <p>
+        {% if project_links %}
+          {{ project_link_button(project_github, "GitHub") }}
+          {{ project_link_button(project_gitlab, "GitLab") }}
+          {{ project_link_button(project_bitbucket, "Bitbucket") }}
+          {{ project_link_button(project_sourceforge, "SourceForge") }}
+          {{ project_link_button(project_website, "The Web") }}
+        {% endif %}
+        {% if project_download %}
+          <a class="btn btn-lg btn-danger float-end" href="{{ project_download }}" role="button">Download the Source</a>
+        {% endif %}
+        </p>
       {% endif %}
-      {% if project_download %}
-        <a class="btn btn-lg btn-danger" style="float:right" href="{{ project_download }}" role="button">Download the Source</a>
-      {% endif %}
-      </p>
     </div>
   {% endif %}
 
-      <div class="row" id='text'>
-        {% set col = "col-md-8" if author else "col-md-12"%}
-        <div class={{ col }}>
+      <div class="row" id="text">
+        {% set col = "col-md-8" if author else "col-md-12" %}
+        <div class="{{ col }}">
           <h1>{{ project }}</h1>
           {{ proj_docs }}
         </div>
@@ -50,8 +54,9 @@
               <h2 class="card-title">Developer Info</h2>
               <h4 class="card-text">{{ author }}</h4>
               <p class="card-text">{{ author_description }}</p>
-              {% if github or bitbucket or facebook or twitter or google_plus or linkedin or email or website %}
-                <div class="text-center"><div class="btn-group" role="group">
+              {% if email or website or github or gitlab or bitbucket or facebook or google_plus or linkedin or twitter %}
+                <div class="text-center">
+                  <div class="btn-group" role="group">
                     {% if email %}
                       <a class="btn btn-lg btn-primary" href="mailto:{{ email }}"><i class="fa fa-envelope fa-lg"></i></a>
                     {% endif %}
@@ -63,7 +68,8 @@
                     {{ dev_link_button(google_plus, "fa-google-plus") }}
                     {{ dev_link_button(linkedin, "fa-linkedin") }}
                     {{ dev_link_button(twitter, "fa-twitter") }}
-                </div></div>
+                  </div>
+                </div>
               {% endif %}
             </div>
           </div>
@@ -77,8 +83,8 @@
       {% set max_length = max_frontpage_items|int %}
       {% if count and max_length %}
         {% set width = (12/count)|int %}
+        <hr>
         <div class="row">
-          <hr>
           {% if incl_src %}
           <div class="col-xs-6 col-sm-{{ width }}">
             <div>
@@ -91,7 +97,7 @@
             </div>
             <div>
               <ul>
-                <li><a href="{{ project_url }}/lists/files.html"><em>All source files&hellip;</em></a></li>
+                <li><a href="{{ project_url }}/lists/files.html"><em>All source files…</em></a></li>
               </ul>
             </div>
           </div>
@@ -108,7 +114,7 @@
             </div>
             <div>
               <ul>
-                <li><a href="{{ project_url }}/lists/modules.html"><em>All modules&hellip;</em></a></li>
+                <li><a href="{{ project_url }}/lists/modules.html"><em>All modules…</em></a></li>
               </ul>
             </div>
           </div>
@@ -125,7 +131,7 @@
             </div>
             <div>
               <ul>
-                <li><a href="{{ project_url }}/lists/procedures.html"><em>All procedures&hellip;</em></a></li>
+                <li><a href="{{ project_url }}/lists/procedures.html"><em>All procedures…</em></a></li>
               </ul>
             </div>
           </div>
@@ -142,7 +148,7 @@
             </div>
             <div>
               <ul>
-                <li><a href="{{ project_url }}/lists/types.html"><em>All derived types&hellip;</em></a></li>
+                <li><a href="{{ project_url }}/lists/types.html"><em>All derived types…</em></a></li>
               </ul>
             </div>
           </div>
