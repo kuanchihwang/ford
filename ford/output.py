@@ -92,8 +92,11 @@ def relative_url(entity: Union[FortranBase, str], page_url: pathlib.Path) -> str
         if link_href.startswith("http"):
             # This is (almost certainly) an external link, so better
             # be correct already
-            return entity
+            return link_str
         link_path = str(pathlib.Path(link_href).resolve())
+    elif "/" not in link_str:
+        # `link_str` just represents a plain name so return it as is.
+        return link_str
     else:
         link_path = link_str
 
