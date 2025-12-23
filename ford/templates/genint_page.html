@@ -1,9 +1,9 @@
 <!-- -*- mode: jinja2 -*- -->
 
+{% import "macros.html" as macros %}
 {% extends "base.html" %}
-{% block title %}{{ interface.name }} &ndash; {{ project }}{% endblock title %}
+{% block title %}{{ interface.name }} – {{ project }}{% endblock title %}
 {% block body %}
-  {% import 'macros.html' as macros %}
   <div class="row">
     <h1>{{ interface.name }}
       <small>Interface</small>
@@ -17,7 +17,7 @@
       {{ macros.sidebar(project,interface) }}
     </div>
 
-    <div class="col-md-9" id='text'>
+    <div class="col-md-9" id="text">
       <h2>{{ interface.permission }} interface {{ interface.name }}</h2>
       {{ interface.doc }}
       {% if interface.callsgraph %}
