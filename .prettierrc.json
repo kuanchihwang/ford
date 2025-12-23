@@ -1,0 +1,23 @@
+{
+    "attributeGroups": [
+        "$CODE_GUIDE"
+    ],
+    "attributeSort": "ASC",
+    "overrides": [
+        {
+            "files": [
+                "*.html"
+            ],
+            "options": {
+                "parser": "jinja-template"
+            }
+        }
+    ],
+    "plugins": [
+        "@awmottaz/prettier-plugin-void-html",
+        "prettier-plugin-jinja-template",
+        "prettier-plugin-organize-attributes",
+        "prettier-plugin-tailwindcss"
+    ],
+    "printWidth": 120
+}
